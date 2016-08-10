@@ -27,7 +27,7 @@ class TableView extends Component {
     }
 }
 
-TableView.TableCell = (props)=> {
+TableView.TableRow = (props)=> {
     const isPressAble = props.onPress ? true : false
 
     let renderCell = ()=> {
