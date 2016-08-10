@@ -3,7 +3,7 @@ a table row for react-native >0.25
 
 ##	installation
 
-	npm install react-native-table-row --save
+	npm install https://github.com/Cocoon-break/react-native-table-row.git --save
 	
 ###Basic Usage
 	import TableView from 'react-native-table-row'
