@@ -49,3 +49,7 @@ subElement|element|flase|the element of react native,when you use this prop,the 
 showArrow|boolean|false| show arrow in the right
 rightIconSource||false|the source for image,it must be require("...")
 
+##show case
+
+![MacDown Screenshot](https:/raw.githubusercontent.com/Cocoon-break/react-native-table-row/master/screenShot.png)
+
