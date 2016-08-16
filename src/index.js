@@ -16,41 +16,62 @@ const screen = Dimensions.get('window')
 const screenHeight = screen.height
 const screenWidth = screen.width
 
-class TableView extends Component {
+class TableRow extends Component {
     constructor(props) {
         super(props)
+        this.renderTableRow = this.renderTableRow.bind(this)
+        this.Basic = this.Basic.bind(this)
+    }
+
+    static defaultProps = {
+        type: 'Basic',
+        showArrow: false,
+        underlayColor: '#ccc'
+    }
+
+    Basic() {
+        const {
+            titleElement,
+            titleStyle,
+            title,
+            subElement,
+            subtitleStyle,
+            subtitle,
+            showArrow,
+            rightIconSource,
+            style
+            }=this.props
+
+        const te = titleElement ? titleElement : <Text style={[styles.titleStyle,titleStyle]}>{title}</Text>
+        const se = subElement ? subElement : <Text style={[styles.subtitleStyle,subtitleStyle]}>{subtitle}</Text>
+        const ris = rightIconSource ? rightIconSource : require('./list_arrow.png')
+        return <View style={[styles.cellStyle,style]}>
+            {te}
+            {se}
+            {showArrow ? <Image source={ris} style={{marginLeft:4}}></Image> : null}
+        </View>
+    }
+
+    renderTableRow() {
+        const {type}=this.props
+        let tableRow
+        switch (type) {
+            case 'Basic':
+                tableRow = this.Basic()
+                break
+        }
+        return tableRow
     }
 
     render() {
-        return <View style={[this.props.style]}>
-            {this.props.children}
+        const {onPress,underlayColor}=this.props
+        const tableRow = onPress ? <TouchableHighlight onPress={onPress}
+                                                       underlayColor={underlayColor}>{this.renderTableRow()}</TouchableHighlight> : this.renderTableRow()
+
+        return <View>
+            {tableRow}
         </View>
     }
-}
-
-TableView.TableRow = (props)=> {
-    const isPressAble = props.onPress ? true : false
-    const showArrow = props.showArrow ? true : false
-    const rightIconSource = props.rightIconSource ? props.rightIconSource : require('./list_arrow.png')
-    const subElement = props.subElement ? props.subElement :
-        <Text style={[styles.subtitleStyle,props.subtitleStyle]}>{props.subtitle}</Text>
-    const titleElement = props.titleElement ? props.titleElement :
-        <Text style={[styles.titleStyle,props.titleStyle]}>{props.title}</Text>
-
-    let renderCell = ()=> {
-        let cell = <View style={[styles.cellStyle,props.style]}>
-            {titleElement}
-            {subElement}
-            {showArrow ? <Image source={rightIconSource} style={{marginLeft:4}}></Image> : null}
-        </View>
-        cell = isPressAble ? <TouchableHighlight onPress={props.onPress}
-                                                 underlayColor={props.underlayColor}>{cell}</TouchableHighlight> : cell
-        return cell
-    }
-
-    return <View>
-        {renderCell()}
-    </View>
 }
 
 const styles = StyleSheet.create({
@@ -72,4 +93,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default TableView
+export default TableRow

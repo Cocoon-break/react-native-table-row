@@ -51,5 +51,5 @@ rightIconSource||false|the source for image,it must be require("...")
 
 ##show case
 
-![MacDown Screenshot](https:/raw.githubusercontent.com/Cocoon-break/react-native-table-row/master/screenShot.png)
+![MacDown Screenshot](https://github.com/Cocoon-break/react-native-table-row/blob/master/screenShot.png)
 
