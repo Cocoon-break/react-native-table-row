@@ -21,6 +21,7 @@ class TableRow extends Component {
         super(props)
         this.renderTableRow = this.renderTableRow.bind(this)
         this.Basic = this.Basic.bind(this)
+        this.Summary = this.Summary.bind(this)
     }
 
     static defaultProps = {
@@ -29,7 +30,16 @@ class TableRow extends Component {
         underlayColor: '#ccc'
     }
 
-    Basic() {
+    Summary(style) {
+        const {titleIcon,titleIconStyle,cellBodyStyle}=this.props
+        const basicStyle = Object.assign({}, {padding: 12, paddingLeft: 0, marginLeft: 8}, cellBodyStyle || {})
+        return <View style={[styles.summaryStyle,style]}>
+            <Image source={titleIcon} style={[{marginLeft:12},titleIconStyle]}></Image>
+            {this.Basic(basicStyle)}
+        </View>
+    }
+
+    Basic(style) {
         const {
             titleElement,
             titleStyle,
@@ -38,8 +48,7 @@ class TableRow extends Component {
             subtitleStyle,
             subtitle,
             showArrow,
-            rightIconSource,
-            style
+            rightIconSource
             }=this.props
 
         const te = titleElement ? titleElement : <Text style={[styles.titleStyle,titleStyle]}>{title}</Text>
@@ -53,11 +62,14 @@ class TableRow extends Component {
     }
 
     renderTableRow() {
-        const {type}=this.props
+        const {type,style}=this.props
         let tableRow
         switch (type) {
             case 'Basic':
-                tableRow = this.Basic()
+                tableRow = this.Basic(style)
+                break
+            case 'Summary':
+                tableRow = this.Summary(style)
                 break
         }
         return tableRow
@@ -68,7 +80,7 @@ class TableRow extends Component {
         const tableRow = onPress ? <TouchableHighlight onPress={onPress}
                                                        underlayColor={underlayColor}>{this.renderTableRow()}</TouchableHighlight> : this.renderTableRow()
 
-        return <View>
+        return <View style={{width:screenWidth}}>
             {tableRow}
         </View>
     }
@@ -79,10 +91,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: 12,
-        width: screenWidth,
+        //width: screenWidth,
+        flex: 1,
         backgroundColor: 'white',
         borderBottomColor: '#ccc',
         borderBottomWidth: StyleSheet.hairlineWidth
+    },
+    summaryStyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'white'
     },
     titleStyle: {
         fontSize: 16,

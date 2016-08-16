@@ -6,22 +6,27 @@ a table row for react-native >0.25
 	npm install react-native-table-row --save
 	
 ###Basic Usage
-	import TableView from 'react-native-table-row'
-	const TableRow = TableView.TableRow
+	import TableRow from 'react-native-table-row'
 	
 	class Example extends Component {
     render() {
         const image=<Image source={require('./avatar.jpg')} style={{width:60,height:60,borderRadius:30}}></Image>
         return (
             <View style={styles.container}>
-                <TableView>
-                    <TableRow title={'title1'}></TableRow>
-                    <TableRow title={'title2'} showArrow={true}></TableRow>
-                    <TableRow title={'title3'} subtitle={'subtitle3'}></TableRow>
-                    <TableRow title={'title4'} subtitle={'subtitle4'} showArrow={true}></TableRow>
-                    <TableRow title={'title5'} subElement={image}></TableRow>
-                    <TableRow titleElement={image} subtitle={'subtitle'} subtitleStyle={{flex:1,textAlign:'right'}}></TableRow>
-                </TableView>
+                <TableRow title={'title1'}
+                          type={'Summary'}
+                          onPress={()=>{}}
+                          titleIconStyle={{width:32,height:32}}
+                          titleIconSource={require('./avatar.jpg')}
+                          subtitle={'a message unRead'}
+                          showArrow={true}></TableRow>
+                <TableRow title={'title1'} onPress={()=>{}}></TableRow>
+                <TableRow title={'title2'} showArrow={true}></TableRow>
+                <TableRow title={'title3'} subtitle={'subtitle3'}></TableRow>
+                <TableRow title={'title4'} subtitle={'subtitle4'} showArrow={true}></TableRow>
+                <TableRow title={'title5'} subElement={image} showArrow={true}></TableRow>
+                <TableRow titleElement={image} subtitle={'subtitle'}
+                          subtitleStyle={{flex:1,textAlign:'right'}}></TableRow>
             </View>
         );
     }}
@@ -39,6 +44,10 @@ a table row for react-native >0.25
 
 Prop 		| Type 	 |Require	  |Description|
 ----------|----------|----------|----------|
+type|string|false|type must be Basic or Summary,default is Basic
+titleIconSource|source|false|the source for image,it must be require('...'),it will use in type of Summary
+titleIconStyle|style|false|style for titleIcon,use in type of Summary
+cellBodyStyle| style |false | In addition to the titleIcon of style
 onPress |function|false|then function for you when you click 
 title|string|false|text for title
 titleStyle|style|false|react native style for title text
@@ -47,7 +56,7 @@ subtitle|string|false|text for subtitle
 subtitleStyle|style|false|react native style for subtitle text
 subElement|element|flase|the element of react native,when you use this prop,the prop subtitle and subtitleStyle will useless
 showArrow|boolean|false| show arrow in the right
-rightIconSource||false|the source for image,it must be require("...")
+rightIconSource|source|false|the source for image,it must be require("...")
 
 ##show case
 
